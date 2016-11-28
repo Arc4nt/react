@@ -1,0 +1,23 @@
+{
+  "name": "first-react-projec",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node_modules/.bin/webpack-dev-server --progress"
+  },
+  "author": "joab",
+  "devDependencies": {
+    "babel-core": "*",
+    "babel-loader": "*",
+    "webpack": "*",
+    "webpack-dev-server": "*"
+  },
+  "dependencies": {
+    "babel-preset-react": "^6.16.0",
+    "react": "^15.4.0",
+    "react-dom": "^15.4.0"
+  },
+  "license": "ISC"
+}
