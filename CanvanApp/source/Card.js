@@ -3,7 +3,7 @@ import CheckList from "./CheckList";
 import marked from "marked";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import { DragSource,DropTarget } from 'react-dnd';
-
+import {Link} from 'react-router';
 class Card extends Component{
 	constructor(){
 		super(...arguments);
@@ -39,7 +39,7 @@ class Card extends Component{
 		return connectDropTarget(connectDragSource(
 			<div className="card">
 				<div style={sideColor}/>
-
+				<div className="card_edit"><Link to={'/edit/'+this.props.id}>&#9998;</Link></div>
 				<div className="card_title" onClick={this.toggleDetails.bind(this)}>{this.props.title}</div>
 				<ReactCSSTransitionGroup transitionName="toggle"
                                  transitionEnterTimeout={250}

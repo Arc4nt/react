@@ -19,6 +19,26 @@ class KanbanBoardContainer extends Component{
 
 	}
 
+	addCard(card){
+		let prevState=this.state;
+		if(card.id===null){
+			let card=Object.assingn({},card,{id:Date.now()});
+		}
+		let nextState=update(this.state.cards,{$push:[card]});
+		this.setState({cards:nextState})
+	}
+
+	updateCard(card){
+		let prevState=this.state;
+		let cardIndex=this.state.cards.findIndex((c)=>c.id==card.id);
+		let nextState=update(this.state.cards,{
+			[cardIndex]:{
+				$set:card
+			}
+		});
+		this.setState({cards:nextState});
+	}
+
 	updateCardStatus(cardId,listId){
 		let cardIndex=this.state.cards.findIndex((card)=>card.id==cardId);
 		let card=this.state.cards[cardIndex];
@@ -94,12 +114,21 @@ class KanbanBoardContainer extends Component{
 	}
 
 	render(){
-		return <KanbanBoard cards={this.state.cards} 
-					taskCallbacks={{toggle:this.toggleTask.bind(this),
-						 			delete:this.deleteTask.bind(this),
-				 					add:this.addTask.bind(this)}}
-					cardCallbacks={{updateStatus: this.updateCardStatus,
-								 updatePosition: this.updateCardPosition}}/>
+		let kanbanBoard=this.props.children&&React.cloneElement(this.props.children,{
+			cards:this.state.cards,
+			taskCallbacks:{
+				toggle:this.toggleTask.bind(this),
+				delete:this.deleteTask.bind(this),
+				add:this.addTask.bind(this)
+			},
+			cardCallbacks:{
+				addCard:this.addCard.bind(this),
+				updateCard:this.updateCard.bind(this),
+				updateStatus:this.updateCardStatus.bind(this),
+				updatePosition:throttle(this.updateCardPosition.bind(this),500)
+			}
+		})
+		return kanbanBoard;
 	}
 
 	componentDidMount(){

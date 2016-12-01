@@ -1,6 +1,6 @@
 import React,{Component, PropTypes} from "react";
 
-class CheckList{
+class CheckList extends Component{
 	checkInputKeyPress(evt){
 		if(evt.key==="Enter"){
 			this.props.taskCallbacks.add(this.props.cardId,evt.target.value);
